@@ -1,0 +1,33 @@
+﻿@model User
+<h2>Мой профиль</h2>
+<br />
+    <table class="table">
+        <tr>
+            <td><label>Логин:</label></td>
+            <td>@Model.Login</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><a asp-action="ChangePassword" asp-route-userId="@Model.UserId">Сменить пароль</a></td>
+        </tr>
+        <tr>
+            <td><label>Email:</label></td>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <td><label>Баланс:</label></td>
+            <td>@Model.Balance</td>
+        </tr>
+        <tr>
+            <td>&nbsp;</td>
+            <td><a asp-action="BankAccountReplenishment">Пополнить счет</a></td>
+        </tr>
+        <tr>
+            <td><label>Telegram:</label></td>
+            <td>@Model.Telegram</td>
+        </tr>
+        <tr>
+            <td><label>Jabber:</label></td>
+            <td>@Model.Jabber</td>
+        </tr>
+    </table>

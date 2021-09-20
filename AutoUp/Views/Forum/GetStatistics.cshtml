@@ -1,0 +1,96 @@
+﻿@using AutoUp.ViewModels
+@model StatisticsViewModel
+<link rel="stylesheet" href="~/css/Table.css" />
+<h2>Мои форумы</h2>
+<br />
+<div>
+    <label>Баланс:</label><br />
+    @Model.Balance
+</div>
+<table class="table">
+    <tr>
+        <th>
+            <a asp-action="GetStatistics"
+               asp-route-sortOrder="@(Model.SortForumViewModel.NameSort)">Название</a>
+        </th>
+        <th>
+            Время Upов
+        </th>
+        <th>
+            Ссылки
+        </th>
+    </tr>
+    @foreach (var f in Model.Forums)
+    {
+        if ((Model.ForumTimes.ContainsKey(f.ForumId) && Model.ForumTimes[f.ForumId].Count > 0)
+            || (Model.ForumLinks.ContainsKey(f.ForumId) && Model.ForumLinks[f.ForumId].Count > 0))
+        {
+            <tr>
+                <td>@f.Name</td>
+                <td>
+                    @*
+                        @foreach (KeyValuePair<int, List<ForumTime>> ft in Model.ForumTimes)
+                        {
+                            if (ft.Key == f.ForumId)
+                            {
+                                foreach (var t in ft.Value)
+                                {
+                                    <p>@t.DateTime</p>
+                                }
+                            }
+                        }
+                    *@
+                    @f.UpTime
+                </td>
+                <td>
+                    @foreach (KeyValuePair<int, List<ForumLink>> fl in Model.ForumLinks)
+                    {
+                        if (fl.Key == f.ForumId)
+                        {
+                            foreach (var l in fl.Value)
+                            {
+                                <p style="text-align:left;">
+                                    @{
+                                        if (l.LinkState == true)
+                                        {
+                                            <span>Активна&nbsp;</span>
+                                        }
+                                        else
+                                        {
+                                            <span>Неактивна&nbsp;</span>
+                                        }
+                                    }<br />
+                                    @l.LinkUrl
+                                    <br />
+                                    <a asp-action="Edit" asp-route-forumLinkId="@l.ForumLinkId">Редактировать</a>&nbsp;
+                                    <a asp-action="Delete" asp-route-forumLinkId="@l.ForumLinkId">Удалить</a>
+                                </p>
+                            }
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    }
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-sortorder="@(Model.SortForumViewModel.Current)"
+       class="btn  btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-sortorder="@(Model.SortForumViewModel.Current)"
+       class="btn btn-outline-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
+

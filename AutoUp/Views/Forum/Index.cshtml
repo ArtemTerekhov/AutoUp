@@ -1,0 +1,72 @@
+﻿@using AutoUp.ViewModels
+@model ForumViewModel
+<link rel="stylesheet" href="~/css/Table.css" />
+<h2>Список доступных форумов</h2>
+<br />
+<form method="get">
+    <div class="form-inline">
+        <label>Список форумов:</label>&nbsp;
+        <select name="forumId" asp-items="Model.FilterForumViewModel.Forums" class="form-control"></select>&nbsp;
+        <input type="submit" value="Добавить" class="btn btn-outline-dark" />
+    </div>
+</form>
+<br />
+<table class="table">
+    <tr>
+        <th>Url ссылки форума</th>
+        <th>Задержка Upa</th>
+        <th>Статус</th>
+    </tr>
+    @foreach (ForumLink fl in Model.ForumLink)
+    {
+        <tr>
+            <td>@fl.LinkUrl</td>
+            <td>@fl.ForumDelay</td>
+            @if (fl.LinkState)
+            {
+                <td>Активна</td>
+            }
+            else
+            {
+                <td>Отключена</td>
+            }
+            <td>
+                <a asp-action="Edit" asp-route-forumLinkId="@fl.ForumLinkId">Редактировать</a>
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-forumLinkId="@fl.ForumLinkId">Удалить</a>
+            </td>
+        </tr>
+    }
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-forum="@(Model.FilterForumViewModel.SelectedForum)"
+       class="btn  btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-forum="@(Model.FilterForumViewModel.SelectedForum)"
+       class="btn btn-outline-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
+@if (Model.FilterForumViewModel.SelectedForum != null)
+{
+    <a asp-action="CreateLink" asp-route-forumId="@Model.FilterForumViewModel.SelectedForum">
+        Добавить ccылку для форума
+    </a>
+}
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+

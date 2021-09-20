@@ -1,0 +1,79 @@
+﻿@using AutoUp.ViewModels
+@model EditForumViewModel
+    <link rel="stylesheet" href="~/css/jquery.timepicker.min.css" />
+    <h2>Добавить форум</h2>
+    <br />
+    <form asp-action="Create" asp-controller="Admin" asp-anti-forgery="true">
+        <div class="validation" asp-validation-summary="ModelOnly" />
+        <div>
+            <div class="form-group">
+                <label asp-for="Name"></label><br />
+                <input type="text" asp-for="Name" />
+                <span asp-validation-for="Name" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Url"></label><br />
+                <input asp-for="Url" />
+                <span asp-validation-for="Url" />
+            </div>
+            <div class="form-group">
+                <label asp-for="UpPrice"></label><br />
+                <input asp-for="UpPrice" />
+                <span asp-validation-for="UpPrice" />
+            </div>
+            <div class="form-group">
+                <label asp-for="UpTime"></label><br />
+                <input asp-for="UpTime" />
+                <span asp-validation-for="UpTime" />
+            </div>
+            <div class="form-group" id="forumTimes">
+                <label>Время Upa</label><br />
+                <input type="button" value="Добавить" class="btn btn-outline-dark" id="CloneTimeInput" /><br />
+                <input name="DummyForumTimes" class="timepicker" />
+                <input type="button" value="Удалить" class="btn btn-outline-dark" onclick="javascript: delField(this);"><br />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-outline-dark" />
+            </div>
+        </div>
+    </form>
+    @section Scripts {
+        <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+        <script type="text/javascript" src="~/js/jquery.timepicker.min.js"></script>
+        <script>
+
+            $(document).ready(function () {
+
+                $(".timepicker").timepicker({
+                    'minTime': '0:00am',
+                    'maxTime': '11:58pm',
+                    'timeFormat': 'H:i',
+                    'step': 2
+                });
+            });
+
+
+            $("#CloneTimeInput").click(function () {
+
+                var newTimePicker = "<input name=\"DummyForumTimes\" class=\"timepicker\" />";
+                $("#forumTimes").append(newTimePicker);
+                $(".timepicker:last").timepicker({
+                    'minTime': '0:00am',
+                    'maxTime': '11:58pm',
+                    'timeFormat': 'H:i',
+                    'step': 2
+                });
+
+                var newDelButton = "<input type=\"button\" value=\"Удалить\" class=\"btn btn-outline-dark\" onclick=\"javascript: delField(this);\"><br />";
+                $("#forumTimes").append(newDelButton);
+
+            });
+
+            function delField(element) {
+                $(element).prev().remove();
+                $(element).remove();
+            }
+        </script>
+    }
+

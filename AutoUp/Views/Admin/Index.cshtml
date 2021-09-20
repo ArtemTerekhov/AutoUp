@@ -1,0 +1,79 @@
+﻿@using AutoUp.ViewModels
+@model IndexForumViewModel
+<link rel="stylesheet" href="~/css/Table.css" />
+<h2>Список форумов</h2>
+<br />
+<form method="get">
+    <div class="form-inline">
+        <label>Название форума:</label>&nbsp;
+        <input name="name" value="@Model.FilterForumViewModel.SelectedName" class="form-control" />&nbsp;
+
+        <label>Список форумов:</label>&nbsp;
+        <select name="forum" asp-items="Model.FilterForumViewModel.Forums" class="form-control"></select>&nbsp;
+
+        <input type="submit" value="Фильтр" class="btn btn-outline-dark" />
+    </div>
+</form>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            <a asp-action="Index"
+               asp-route-sortOrder="@(Model.SortForumViewModel.NameSort)"
+               asp-route-name="@(Model.FilterForumViewModel.SelectedName)"
+               asp-route-forum="@(Model.FilterForumViewModel.SelectedForum)">Название</a>
+        </th>
+        <th>
+            <a asp-action="Index" asp-route-sortOrder="@(Model.SortForumViewModel.UpSort)"
+               asp-route-name="@(Model.FilterForumViewModel.SelectedName)"
+               asp-route-forum="@(Model.FilterForumViewModel.SelectedForum)">Стоимость Апа</a>
+        </th>
+        <th>
+            <a asp-action="Index" asp-route-sortOrder="@(Model.SortForumViewModel.UrlSort)"
+               asp-route-name="@(Model.FilterForumViewModel.SelectedName)"
+               asp-route-forum="@(Model.FilterForumViewModel.SelectedForum)">Url форума</a>
+        </th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+    </tr>
+    @foreach (Forum f in Model.Forums)
+    {
+        <tr>
+            <td>@f.Name</td>
+            <td>@f.UpPrice</td>
+            <td>@f.Url</td>
+            <td>
+                <a asp-action="Edit" asp-route-forumId="@f.ForumId">Редактировать</a>
+            </td>
+            <td>
+                <a asp-action="Delete" asp-route-forumId="@f.ForumId">Удалить</a>
+            </td>
+        </tr>
+    }
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-name="@(Model.FilterForumViewModel.SelectedName)"
+       asp-route-forum="@(Model.FilterForumViewModel.SelectedForum)"
+       asp-route-sortorder="@(Model.SortForumViewModel.Current)"
+       class="btn  btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="Index"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-name="@(Model.FilterForumViewModel.SelectedName)"
+       asp-route-forum="@(Model.FilterForumViewModel.SelectedForum)"
+       asp-route-sortorder="@(Model.SortForumViewModel.Current)"
+       class="btn btn-outline-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
+<a asp-action="Create">Добавить форум</a>
+

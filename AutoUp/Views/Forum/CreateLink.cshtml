@@ -1,0 +1,65 @@
+﻿@using AutoUp.ViewModels
+@model ForumLinkViewModel
+    <link rel="stylesheet" href="~/css/jquery-ui.css" />
+<h2>Ссылка для поднятия темы</h2>
+<br />
+<form asp-action="CreateLink" asp-controller="Forum" asp-anti-forgery="true" id="CreateLinkForm">
+    <div class="validation" asp-validation-summary="ModelOnly" />
+    <input type="hidden" asp-for="@Model.UserId " />
+    <input type="hidden" asp-for="@Model.ForumId " />
+    <div>
+        <div>
+            <label asp-for="Balance"></label><br />
+            <div>@Model.Balance</div>
+        </div>
+        <div>
+            <label asp-for="Login"></label><br />
+            <input type="text" asp-for="Login" />
+            <span asp-validation-for="Login" />
+        </div>
+        <div>
+            <label asp-for="Password"></label><br />
+            <input asp-for="Password" />
+            <span asp-validation-for="Password" />
+        </div>
+        <br />
+        <div>
+            <label asp-for="SecretWord"></label>&nbsp;<a href="#" title="Секретное слово используется при регистрации на некоторых сайтах">?</a><br />
+            <input asp-for="SecretWord" />
+        </div>
+        <br />
+        <div>
+            <label asp-for="LinkUrl"></label><br />
+            <input asp-for="LinkUrl" class="form-control" />
+            <span asp-validation-for="LinkUrl" />
+        </div>
+        <div>
+            <label>Задержка Upa:</label><br />
+                                        <select name="ForumDelay">
+                                            <!--   <option value="60">60 секунд</option> -->
+                                            <option value="120">120 секунд</option>
+                                            <option value="240">249 секунд</option>
+                                            <option value="300">300 секунд</option>
+                                        </select>
+
+        </div>
+        <div>
+            <label>Состояние:</label><br />
+            <select name="LinkState">
+                <option value="true">Активна</option>
+                <option value="false">Неактивна</option>
+            </select>
+        </div><br />
+        <div>
+            <input type="submit" value="Сохранить" class="btn btn-outline-dark" />
+        </div>
+    </div>
+</form>
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <script>
+        $(document).tooltip();
+    </script>
+}

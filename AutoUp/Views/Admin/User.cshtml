@@ -1,0 +1,83 @@
+﻿@using AutoUp.ViewModels
+@model IndexUserViewModel
+<link rel="stylesheet" href="~/css/Table.css" />
+<h2>Список пользователей</h2>
+<br />
+<form method="get">
+    <div class="form-inline">
+        <label>Логин пользователя:</label>&nbsp;
+        <input name="login" value="@Model.FilterUserViewModel.SelectedLogin" class="form-control" />&nbsp;
+
+        <label>Список пользователей:</label>&nbsp;
+        <select name="user" asp-items="Model.FilterUserViewModel.Users" class="form-control"></select>&nbsp;
+
+        <input type="submit" value="Фильтр" class="btn btn-outline-dark" />
+    </div>
+</form>
+<br />
+<table class="table">
+    <tr>
+        <th>
+            <a asp-action="User"
+               asp-route-sortOrder="@(Model.SortUserViewModel.LoginSort)"
+               asp-route-login="@(Model.FilterUserViewModel.SelectedLogin)"
+               asp-route-user="@(Model.FilterUserViewModel.SelectedUser)">Имя пользователя</a>
+        </th>
+        <th>
+            <a asp-action="User" asp-route-sortOrder="@(Model.SortUserViewModel.EmailSort)"
+               asp-route-login="@(Model.FilterUserViewModel.SelectedLogin)"
+               asp-route-user="@(Model.FilterUserViewModel.SelectedUser)">Email</a>
+        </th>
+        <th>
+            <a asp-action="User" asp-route-sortOrder="@(Model.SortUserViewModel.BalanceSort)"
+               asp-route-login="@(Model.FilterUserViewModel.SelectedLogin)"
+               asp-route-user="@(Model.FilterUserViewModel.SelectedUser)">Баланс</a>
+        </th>
+        <th>
+            <a asp-action="User" asp-route-sortOrder="@(Model.SortUserViewModel.RoleSort)"
+               asp-route-login="@(Model.FilterUserViewModel.SelectedLogin)"
+               asp-route-user="@(Model.FilterUserViewModel.SelectedUser)">Роль</a>
+        </th>
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+    </tr>
+    @foreach (User u in Model.Users)
+    {
+        <tr>
+            <td>@u.Login</td>
+            <td>@u.Email</td>
+            <td>@u.Balance</td>
+            <td>@u.Role.Name</td>
+            <td>
+                <a asp-action="EditUser" asp-route-userId="@u.UserId">Редактировать</a>
+            </td>
+            <td>
+                <a asp-action="DeleteUser" asp-route-userId="@u.UserId">Удалить</a>
+            </td>
+        </tr>
+    }
+</table>
+@if (Model.PageViewModel.HasPreviousPage)
+{
+    <a asp-action="User"
+       asp-route-page="@(Model.PageViewModel.PageNumber - 1)"
+       asp-route-login="@(Model.FilterUserViewModel.SelectedLogin)"
+       asp-route-user="@(Model.FilterUserViewModel.SelectedUser)"
+       asp-route-sortorder="@(Model.SortUserViewModel.Current)"
+       class="btn  btn-outline-dark">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+        Назад
+    </a>
+}
+@if (Model.PageViewModel.HasNextPage)
+{
+    <a asp-action="User"
+       asp-route-page="@(Model.PageViewModel.PageNumber + 1)"
+       asp-route-login="@(Model.FilterUserViewModel.SelectedLogin)"
+       asp-route-user="@(Model.FilterUserViewModel.SelectedUser)"
+       asp-route-sortorder="@(Model.SortUserViewModel.Current)"
+       class="btn btn-outline-dark">
+        Вперед
+        <i class="glyphicon glyphicon-chevron-right"></i>
+    </a>
+}
