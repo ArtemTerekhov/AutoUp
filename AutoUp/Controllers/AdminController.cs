@@ -22,18 +22,14 @@ namespace AutoUp.Controllers
 
             if (db.Forums.Count() == 0)
             {
-                Forum one = new Forum { Name = "DarkMoney", Url = "https://darkmoney.la/", UpPrice = 0.0M };
                 Forum two = new Forum { Name = "BDF", Url = "https://bdf-club.com/", UpPrice = 0.0M };
                 Forum three = new Forum { Name = "BHF", Url = "https://bhf.io/", UpPrice = 0.0M };
                 Forum four = new Forum { Name = "CENTER", Url = "https://center-club.us/", UpPrice = 0.0M };
                 Forum five = new Forum { Name = "CLUB2CRD", Url = "https://crdclub.su/", UpPrice = 0.0M };
-                Forum six = new Forum { Name = "DarkMarket", Url = "http://darkmarket.sg/", UpPrice = 0.0M };
                 Forum seven = new Forum { Name = "Deep Web", Url = "https://search.deepweb.to/", UpPrice = 0.0M };
                 Forum eight = new Forum { Name = "DUBLICAT", Url = "https://www.dublikat.shop/", UpPrice = 0.0M };
-                Forum nine = new Forum { Name = "Exploit - АП не работает!!", Url = "https://forum.exploit.in/", UpPrice = 0.0M };
                 Forum ten = new Forum { Name = "OpenCard", Url = "https://opencard.us/", UpPrice = 0.0M };
                 Forum eleven = new Forum { Name = "Openssource", Url = "https://openssource.info/", UpPrice = 0.0M };
-                Forum twelve = new Forum { Name = "PROBIV", Url = "https://forum.probiv.bz/", UpPrice = 0.0M };
                 Forum thirteen = new Forum { Name = "ProCrd", Url = "https://procrd.net/", UpPrice = 0.0M };
                 Forum fourteen = new Forum { Name = "SkyNetZone", Url = "https://skynetzone.pw/", UpPrice = 0.0M };
                 Forum fifteen = new Forum { Name = "TENEC", Url = "https://tenec.to/", UpPrice = 0.0M };
@@ -41,8 +37,8 @@ namespace AutoUp.Controllers
                 Forum seventeen = new Forum { Name = "XSS", Url = "https://xss.is/", UpPrice = 0.0M };
                 Forum eighteen = new Forum { Name = "MONEYMAKER", Url = "https://moneymaker.hk/", UpPrice = 0.0M };
 
-                db.Forums.AddRange(one, two, three, four, five, six, seven, eight, nine, ten, eleven,
-                              twelve, thirteen, fourteen, fifteen, sixteen, seventeen, eighteen);
+                db.Forums.AddRange(two, three, four, five, seven, eight, ten, eleven,
+                              thirteen, fourteen, fifteen, sixteen, seventeen, eighteen);
                 db.SaveChanges();
 
             }
